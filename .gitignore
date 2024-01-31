@@ -12,6 +12,7 @@ Solutions for Java How to Program 10ed - Paul and Harvey Deitel/Rocketseat todol
 *.exe
 *.o
 *.so
+*.iml
 
 # Packages #
 ############
@@ -34,6 +35,7 @@ Solutions for Java How to Program 10ed - Paul and Harvey Deitel/Rocketseat todol
 
 # OS generated files #
 ######################
+.idea
 .DS_Store
 .DS_Store?
 ._*
