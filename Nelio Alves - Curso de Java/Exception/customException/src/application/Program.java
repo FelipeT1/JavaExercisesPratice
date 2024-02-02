@@ -1,6 +1,7 @@
 package application;
 
 import model.entities.Reservation;
+import model.exceptions.DomainException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,9 +11,7 @@ public class Program {
     public static void main(String[] args) {
 
         /*
-         * Essa lógica é um pouco melhor pois a classe reservation está responsável por parte da lógica,
-         * O que é uma boa demonstração de delegação.
-         * Essa solução era usada em linguagens antigas, onde as excessões não existiam
+         * Essa lógica implementa as excessões e delega as determinadas classes suas responsabilidades
          */
         try{
             Scanner teclado = new Scanner(System.in);
@@ -43,8 +42,12 @@ public class Program {
 
             System.out.println(reservation);
         }
-        catch (IllegalArgumentException e){
+        catch (DomainException e) {
             System.out.println("Error in reservation: "+e.getMessage());
+        }
+        //Upcasting para pegar qualquer excessão RuntimeException
+        catch (RuntimeException e){
+            System.out.println("Unexpected error");
         }
 
     }
