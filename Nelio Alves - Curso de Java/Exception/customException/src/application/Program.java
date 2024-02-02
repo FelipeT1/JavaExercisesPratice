@@ -8,6 +8,12 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
+
+        /*
+         * Essa lógica é ruim, pois a lógica de validação está na classe responsável
+         * pela execução do programa, além, claro de ser ineficiente.
+         */
+
         Scanner teclado = new Scanner(System.in);
         DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
