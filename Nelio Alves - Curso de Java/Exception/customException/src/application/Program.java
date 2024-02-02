@@ -14,23 +14,19 @@ public class Program {
          * O que é uma boa demonstração de delegação.
          * Essa solução era usada em linguagens antigas, onde as excessões não existiam
          */
+        try{
+            Scanner teclado = new Scanner(System.in);
+            DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        Scanner teclado = new Scanner(System.in);
-        DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            System.out.print("Enter room number: ");
+            Integer roomNumber = teclado.nextInt();
 
-        System.out.print("Enter room number: ");
-        Integer roomNumber = teclado.nextInt();
+            System.out.print("Enter check in: ");
+            LocalDate checkIn =  LocalDate.parse(teclado.next(), dt);
 
-        System.out.print("Enter check in: ");
-        LocalDate checkIn =  LocalDate.parse(teclado.next(), dt);
+            System.out.print("Enter check out: ");
+            LocalDate checkOut = LocalDate.parse(teclado.next(), dt);
 
-        System.out.print("Enter check out: ");
-        LocalDate checkOut = LocalDate.parse(teclado.next(), dt);
-
-        if(!checkOut.isAfter(checkIn)){
-            System.out.println("Error in reservation: Check out date must be after check in date!");
-        }
-        else{
             Reservation reservation = new Reservation(roomNumber,checkIn,checkOut);
             System.out.println(reservation);
 
@@ -43,14 +39,13 @@ public class Program {
             System.out.print("Enter check out: ");
             checkOut = LocalDate.parse(teclado.next(), dt);
 
-            String error = reservation.updateDates(checkIn,checkOut);
-            if(error != null){
-                System.out.println("Error in Reservation: " + error);
-            }
-            else{
-                System.out.println(reservation);
-            }
+            reservation.updateDates(checkIn,checkOut);
 
+            System.out.println(reservation);
         }
+        catch (IllegalArgumentException e){
+            System.out.println("Error in reservation: "+e.getMessage());
+        }
+
     }
 }
