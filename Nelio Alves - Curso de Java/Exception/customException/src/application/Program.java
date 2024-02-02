@@ -10,8 +10,9 @@ public class Program {
     public static void main(String[] args) {
 
         /*
-         * Essa lógica é ruim, pois a lógica de validação está na classe responsável
-         * pela execução do programa, além, claro de ser ineficiente.
+         * Essa lógica é um pouco melhor pois a classe reservation está responsável por parte da lógica,
+         * O que é uma boa demonstração de delegação.
+         * Essa solução era usada em linguagens antigas, onde as excessões não existiam
          */
 
         Scanner teclado = new Scanner(System.in);
@@ -42,16 +43,14 @@ public class Program {
             System.out.print("Enter check out: ");
             checkOut = LocalDate.parse(teclado.next(), dt);
 
-            if(checkIn.isBefore(LocalDate.now()) || checkOut.isBefore(LocalDate.now())){
-                System.out.println("Reservation dates for update must be future dates!");
-            }
-            else if(checkOut.isBefore(checkIn)){
-                System.out.println("Error in reservation: Check out date must be after check in date!");
+            String error = reservation.updateDates(checkIn,checkOut);
+            if(error != null){
+                System.out.println("Error in Reservation: " + error);
             }
             else{
-                reservation.updateDates(checkIn,checkOut);
                 System.out.println(reservation);
             }
+
         }
     }
 }

@@ -2,7 +2,6 @@ package model.entities;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Reservation {
@@ -36,9 +35,16 @@ public class Reservation {
         Duration duration = Duration.between(checkIn.atStartOfDay(),checkOut.atStartOfDay());
         return duration.toDays();
     }
-    public void updateDates(LocalDate checkIn, LocalDate checkOut){
+    public String updateDates(LocalDate checkIn, LocalDate checkOut){
+        if(checkIn.isBefore(LocalDate.now()) || checkOut.isBefore(LocalDate.now())){
+            return "Reservation dates for update must be future dates!";
+        }
+        if(checkOut.isBefore(checkIn)){
+            return "Check out date must be after check in date!";
+        }
         setCheckIn(checkIn);
         setCheckOut(checkOut);
+        return null;
     }
     private void setCheckIn(LocalDate checkIn) {
         this.checkIn = checkIn;
