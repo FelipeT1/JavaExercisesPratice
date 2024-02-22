@@ -1,0 +1,41 @@
+package application;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args) {
+
+        File path = new File("C:\\tmp\\exerciseReadingFile\\sales.txt");
+
+        boolean createFolder = new File("C:\\tmp\\exerciseReadingFile" + "\\out").mkdir();
+
+        File file = new File("C:\\tmp\\exerciseReadingFile\\out\\summary.csv");
+
+        String productName;
+        double productPrice;
+        int productQuantity;
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))){
+        
+            Scanner sc = new Scanner(path);
+
+            while(sc.hasNextLine()){
+                String productInfo = sc.nextLine();
+                String[] p = productInfo.split(", ");
+                productName = p[0];
+                productPrice = Double.parseDouble(p[1]);
+                productQuantity = Integer.parseInt(p[2]);
+                bufferedWriter.write(productName);
+                bufferedWriter.write(", ");
+                bufferedWriter.write(String.valueOf(productPrice*productQuantity));
+                bufferedWriter.write("\n");
+            }
+        }
+        catch (IOException e){
+
+        }
+    }
+}
